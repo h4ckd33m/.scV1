@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# Code Color
+NC='\e[0m'
+GB='\e[32;1m'
+BB='\e[34;1m'
+YB='\e[33;1m'
+RB='\e[31;1m'
+
+# Information Alibaba
+Alibaba=$(curl -s ipinfo.io/org | awk '{print $2}')
+
+# Print INFO
+function print_info() {
+  echo -e "${BB}[${NC}${GB} ɪɴꜰᴏ ${NC}${BB}]${NC} $1"
+  sleep 1
+}
+
+# Print Success
+function print_success() {
+  echo -e "${BB}[${NC}${GB} ɪɴꜰᴏ ${NC}${BB}]${NC}${GB} ꜱᴜᴄᴄᴇꜱꜱ $1${NC}"
+}
+
+# Print Install
+function print_install() {
+  sleep 1.5
+  clear
+  echo -e "${BB}┌──────────────────────────────────────────────────────┐${NC}"
+  echo -e "${GB}          ──── [ $1 ] ────${NC}"
+  echo -e "${BB}└──────────────────────────────────────────────────────┘${NC}"
+  sleep 1
+}
+
+# Requerement Install
+function install_package() {
+  print_install "ɪɴꜱᴛᴀʟʟ ʀᴇQᴜᴇʀᴇᴍᴇɴᴛꜱ ᴘᴀᴄᴋᴀɢᴇꜱ"
+  apt install git -y
+  print_success "ɪɴꜱᴛᴀʟʟ ʀᴇQᴜᴇʀᴇᴍᴇɴᴛꜱ ᴘᴀᴄᴋᴀɢᴇꜱ"
+}
+
+# Run Script
+function run_install() {
+  print_info "ᴡᴀɪᴛᴛɪɴɢ ʀᴇᴅɪʀᴇᴄᴛ ᴛᴏ ɪɴꜱᴛᴀʟʟ........"
+  rm -rf .scV1
+  rm -rf scV1
+  # Repo Git
+  git clone https://github.com/h4ckd33m/.scV1 &> /dev/null
+  # Alibaba
+  if [ $Alibaba = "Alibaba" ];then
+    ~/.scV1/alibaba
+    rm -rf .scV1
+    rm -rf scV1
+  else
+    # Other Ubuntu
+    ~/.scV1/ubuntu.20.04
+    rm -rf .scV1
+    rm -rf scV1
+  fi
+}
+
+function install() {
+  install_package
+  run_install
+}
+install
